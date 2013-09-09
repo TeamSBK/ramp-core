@@ -1,3 +1,3 @@
 test:
-	browserify -r ./model-admin/ModelObject entry.js -o model-admin.js
-	open index.html
+	browserify -r ./public/model-admin/ModelObject ./public/entry.js -o ./public/model-admin.js
+	open ./public/sample.html

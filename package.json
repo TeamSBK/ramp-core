@@ -1,0 +1,11 @@
+{
+    "name": "Ramp-Model",
+    "version": "0.0.0",
+    "description": "Collaborative Data Modelling.",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest"
+    },
+    "author": "Weto Olaguer"
+}
