@@ -595,9 +595,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],"./public/model-admin/ModelObject":[function(require,module,exports){
-module.exports=require('JCx2os');
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var ModelObject = require ('./model-admin/ModelObject');
 
 var mod = new ModelObject('weto');
@@ -609,7 +607,7 @@ var polluted = function () {
 
 module.exports = polluted;
 
-},{"./model-admin/ModelObject":"JCx2os"}],6:[function(require,module,exports){
+},{"./model-admin/ModelObject":9}],5:[function(require,module,exports){
 var Attribute = function (attribute, type) {
     this.attribute = attribute;
     this.type = type;
@@ -617,7 +615,93 @@ var Attribute = function (attribute, type) {
 
 module.exports = Attribute;
 
-},{}],"JCx2os":[function(require,module,exports){
+},{}],"fqUEDy":[function(require,module,exports){
+var ModelObject = require ('./ModelObject');
+var ModelAdminEvents = require ('./ModelAdminEvents');
+var util = require("util");
+var events = require("events");
+
+var ModelAdmin = function (adminId) {
+    var id = adminId;
+    var modelPool = [];
+
+    this.getModelPool = function () {
+        return modelPool;
+    };
+
+    this.getId = function () {
+        return id;
+    };
+};
+
+util.inherits(ModelAdmin, events.EventEmitter);
+
+ModelAdmin.prototype.createModel = function (name) {
+    var modelPool = this.getModelPool();
+
+    //Check if the model name is already taken
+    for (var i = 0; i < modelPool.length; i++) {
+        if (modelPool[i].name === name) {
+            throw new Error ("Model Name is already taken.");
+        }
+    }
+
+    var newModel = new ModelObject (name);
+    modelPool.push (newModel);
+    this.emit(ModelAdminEvents.MODEL_CREATED, newModel);
+
+    return newModel;
+};
+
+ModelAdmin.prototype.getModel = function (name) {
+    var modelPool = this.getModelPool();
+
+    for (var i = 0; i < modelPool.length; i++) {
+        if (modelPool[i].name === name) {
+            return modelPool[i];
+        }
+    }
+
+    //throw error if nothing is found
+    throw new Error("Model is non existent.");
+};
+
+ModelAdmin.prototype.deleteModel = function (name) {
+    var modelPool = this.getModelPool();
+    var succeeded = false;
+
+    for (var i = 0; i < modelPool.length; i++) {
+        if (modelPool[i].name === name) {
+            modelObject = modelPool.splice(i,1)[0];
+            succeeded = true;
+        }
+    }
+
+    if (!succeeded) {
+        throw new Error ("Model is non existent.");
+    }
+
+    this.emit(ModelAdminEvents.MODEL_DELETED, modelObject);
+};
+
+module.exports = ModelAdmin;
+
+},{"./ModelAdminEvents":8,"./ModelObject":9,"events":1,"util":2}],"./model-admin/ModelAdmin.js":[function(require,module,exports){
+module.exports=require('fqUEDy');
+},{}],8:[function(require,module,exports){
+var ModelAdminEvents = {
+    MODEL_CREATED : 'modelCreated',
+    MODEL_MODIFIED :'modelModified',
+    MODEL_DELETED : 'modelDeleted',
+    ATTRIBUTE_ADDED : 'attributeAdded',
+    ATTRIBUTE_REMOVED : 'attributeRemoved',
+    RELATIONSHIP_ADDED : 'relationshipAdded',
+    RELATIONSHIP_REMOVED: 'relationshipRemoved'
+};
+
+module.exports = ModelAdminEvents;
+
+},{}],9:[function(require,module,exports){
 var Attribute = require ("./Attribute");
 var Relationship = require ("./Relationship");
 var ModelObjectEvents = require("./ModelObjectEvents");
@@ -714,7 +798,7 @@ ModelObject.prototype.removeRelationShip = function (model) {
 
 module.exports = ModelObject;
 
-},{"./Attribute":6,"./ModelObjectEvents":8,"./Relationship":9,"events":1,"util":2}],8:[function(require,module,exports){
+},{"./Attribute":5,"./ModelObjectEvents":10,"./Relationship":11,"events":1,"util":2}],10:[function(require,module,exports){
 var ModelObjectEvents = {
     ATTRIBUTE_ADDED : 'attributeAdded',
     ATTRIBUTE_REMOVED : 'attributeRemoved',
@@ -724,7 +808,7 @@ var ModelObjectEvents = {
 
 module.exports = ModelObjectEvents;
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var Relationship = function (model, type) {
     this.model = model;
     this.type = type;
@@ -732,5 +816,5 @@ var Relationship = function (model, type) {
 
 module.exports = Relationship;
 
-},{}]},{},[5])
+},{}]},{},[4])
 ;

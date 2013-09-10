@@ -1,14 +1,8 @@
 <html>
-<script src='entry.js'></script>
+<script src='model-admin.js'></script>
 <script>
-  var ModelObject = require ('./model-admin/ModelObject');
-
-  var weto = new ModelObject('weto');
-  weto.on ('attributeAdded', weee);
-
-  function weee (attribute) {
-    console.log('triggered');
-  }
+  var ModelAdmin = require ('./model-admin/ModelAdmin.js');
+  var admin = new ModelAdmin('sample');
 </script>
 <body>
 </body>

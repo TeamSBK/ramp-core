@@ -1,17 +1,26 @@
 var ModelObject = require ('./ModelObject');
-var ModelAdminEvents = require ('ModelAdminEvents');
+var ModelAdminEvents = require ('./ModelAdminEvents');
+var util = require("util");
+var events = require("events");
 
-var ModelAdmin = function () {
+var ModelAdmin = function (adminId) {
+    var id = adminId;
     var modelPool = [];
 
     this.getModelPool = function () {
         return modelPool;
     };
+
+    this.getId = function () {
+        return id;
+    };
 };
 
-util.inherits(ModelObject, events.EventEmitter);
+util.inherits(ModelAdmin, events.EventEmitter);
 
 ModelAdmin.prototype.createModel = function (name) {
+    var modelPool = this.getModelPool();
+
     //Check if the model name is already taken
     for (var i = 0; i < modelPool.length; i++) {
         if (modelPool[i].name === name) {
@@ -20,7 +29,7 @@ ModelAdmin.prototype.createModel = function (name) {
     }
 
     var newModel = new ModelObject (name);
-    modePool.push (newModel);
+    modelPool.push (newModel);
     this.emit(ModelAdminEvents.MODEL_CREATED, newModel);
 
     return newModel;
