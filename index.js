@@ -1,4 +1,5 @@
 var express = require("express");
+var Firebase = require('firebase');
 var app = express();
 var port = 3700;
 
@@ -10,6 +11,10 @@ app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
 
 var io = require('socket.io').listen(app.listen(port));
+
+// var mainFirebase = new Firebase('https://ramp-model.firebaseio.com/');
+var fieldTypes = new Firebase('https://ramp-model.firebaseio.com/field-types');
+var modelRels = new Firebase('https://ramp-model.firebaseio.com/relationships');
 
 app.get("/", function(req, res){
     res.render("page");
