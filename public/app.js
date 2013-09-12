@@ -1,4 +1,7 @@
 window.onload = function () {
+    var ModelAdmin = require ('./model-admin/ModelAdmin.js');
+    window.admin = new ModelAdmin('SampleAdmin');
+
     var ModelAdmin = require ('./lib/ModelAdmin.js');
     var ModelAdminEvents = require ('./model-admin/ModelAdminEvents.js');
     var ModelObjectEvents = require ('./model-admin/ModelObjectEvents.js');
@@ -30,4 +33,5 @@ window.onload = function () {
         }
     });
 
+    Backbone.history.start();
 };
