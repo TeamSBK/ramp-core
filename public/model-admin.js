@@ -596,18 +596,9 @@ process.chdir = function (dir) {
 };
 
 },{}],4:[function(require,module,exports){
-var ModelObject = require ('./model-admin/ModelObject');
+var ModelAdmin = require ('./lib/ModelAdmin.js');
 
-var mod = new ModelObject('weto');
-mod.addAttribute();
-
-var polluted = function () {
-    console.log('polluted');
-};
-
-module.exports = polluted;
-
-},{"./model-admin/ModelObject":9}],5:[function(require,module,exports){
+},{"./lib/ModelAdmin.js":"IKm1+o"}],5:[function(require,module,exports){
 var Attribute = function (attribute, type) {
     this.attribute = attribute;
     this.type = type;
@@ -615,7 +606,9 @@ var Attribute = function (attribute, type) {
 
 module.exports = Attribute;
 
-},{}],"fqUEDy":[function(require,module,exports){
+},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
+module.exports=require('IKm1+o');
+},{}],"IKm1+o":[function(require,module,exports){
 var ModelObject = require ('./ModelObject');
 var ModelAdminEvents = require ('./ModelAdminEvents');
 var util = require("util");
@@ -686,17 +679,11 @@ ModelAdmin.prototype.deleteModel = function (name) {
 
 module.exports = ModelAdmin;
 
-},{"./ModelAdminEvents":8,"./ModelObject":9,"events":1,"util":2}],"./model-admin/ModelAdmin.js":[function(require,module,exports){
-module.exports=require('fqUEDy');
-},{}],8:[function(require,module,exports){
+},{"./ModelAdminEvents":8,"./ModelObject":9,"events":1,"util":2}],8:[function(require,module,exports){
 var ModelAdminEvents = {
     MODEL_CREATED : 'modelCreated',
     MODEL_MODIFIED :'modelModified',
     MODEL_DELETED : 'modelDeleted',
-    ATTRIBUTE_ADDED : 'attributeAdded',
-    ATTRIBUTE_REMOVED : 'attributeRemoved',
-    RELATIONSHIP_ADDED : 'relationshipAdded',
-    RELATIONSHIP_REMOVED: 'relationshipRemoved'
 };
 
 module.exports = ModelAdminEvents;

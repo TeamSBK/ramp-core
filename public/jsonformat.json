@@ -1,0 +1,10 @@
+{
+    "id": 1,
+    "models": [
+        {
+            "name" : "User",
+            "attributes" : [{"name":"string"},{"age":10}],
+            "relationships" : [{"friend":"has_many"},{"group":"belongs_to"}]
+        }
+    ]
+}
