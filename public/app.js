@@ -1,12 +1,12 @@
 window.onload = function () {
-    var ModelAdmin = require ('./model-admin/ModelAdmin.js');
-    window.admin = new ModelAdmin('SampleAdmin');
 
     var ModelAdmin = require ('./lib/ModelAdmin.js');
-    var ModelAdminEvents = require ('./model-admin/ModelAdminEvents.js');
-    var ModelObjectEvents = require ('./model-admin/ModelObjectEvents.js');
+    var ModelAdminEvents = require ('./lib/ModelAdminEvents.js');
+    var ModelObjectEvents = require ('./lib/ModelObjectEvents.js');
 
-    var socket = io.connect('http://loacalhost:3700');
+    admin = new ModelAdmin('SampleAdmin');
+
+    var socket = io.connect('http://loacalhost:8000');
 
     admin = new ModelAdmin('SampleAdmin');
 

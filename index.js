@@ -1,7 +1,7 @@
 var express = require("express");
 var Firebase = require('firebase');
 var app = express();
-var port = 3700;
+var port = 8000;
 
 //Set view
 app.set('views', __dirname + '/tpl');
