@@ -15,7 +15,8 @@ html
         script(src='/socket.io/socket.io.js')
         script(src='/model-admin.js')
         script(src='/app.js')
-
+        script(src='../public/app_canvas/javascripts/drag_and_drop.js')
+        script(src='../public/app_canvas/javascripts/easeljs-0.5.0.min.js')
         //move to router when you get it running
         script.
           $(function(){
@@ -23,8 +24,10 @@ html
             view.render();
           });
 
-    body
+    body(onload='init();', screen_capture_injected='true', cz-shortcut-listen='true')
+
         #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
+        canvas#demoCanvas(width='1000', height='500')
         #sidebar
         .controls
             input#field(style='width:350px;')
