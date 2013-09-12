@@ -598,7 +598,7 @@ process.chdir = function (dir) {
 },{}],4:[function(require,module,exports){
 var ModelAdmin = require ('./lib/ModelAdmin.js');
 
-},{"./lib/ModelAdmin.js":"IKm1+o"}],5:[function(require,module,exports){
+},{"./lib/ModelAdmin.js":"dM8Aoc"}],5:[function(require,module,exports){
 var Attribute = function (attribute, type) {
     this.attribute = attribute;
     this.type = type;
@@ -606,9 +606,7 @@ var Attribute = function (attribute, type) {
 
 module.exports = Attribute;
 
-},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
-module.exports=require('IKm1+o');
-},{}],"IKm1+o":[function(require,module,exports){
+},{}],"dM8Aoc":[function(require,module,exports){
 var ModelObject = require ('./ModelObject');
 var ModelAdminEvents = require ('./ModelAdminEvents');
 var util = require("util");
@@ -679,7 +677,11 @@ ModelAdmin.prototype.deleteModel = function (name) {
 
 module.exports = ModelAdmin;
 
-},{"./ModelAdminEvents":8,"./ModelObject":9,"events":1,"util":2}],8:[function(require,module,exports){
+},{"./ModelAdminEvents":"AuZHws","./ModelObject":11,"events":1,"util":2}],"./lib/ModelObjectEvents.js":[function(require,module,exports){
+module.exports=require('qk2Phv');
+},{}],"./lib/ModelAdminEvents.js":[function(require,module,exports){
+module.exports=require('AuZHws');
+},{}],"AuZHws":[function(require,module,exports){
 var ModelAdminEvents = {
     MODEL_CREATED : 'modelCreated',
     MODEL_MODIFIED :'modelModified',
@@ -688,7 +690,9 @@ var ModelAdminEvents = {
 
 module.exports = ModelAdminEvents;
 
-},{}],9:[function(require,module,exports){
+},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
+module.exports=require('dM8Aoc');
+},{}],11:[function(require,module,exports){
 var Attribute = require ("./Attribute");
 var Relationship = require ("./Relationship");
 var ModelObjectEvents = require("./ModelObjectEvents");
@@ -785,7 +789,7 @@ ModelObject.prototype.removeRelationShip = function (model) {
 
 module.exports = ModelObject;
 
-},{"./Attribute":5,"./ModelObjectEvents":10,"./Relationship":11,"events":1,"util":2}],10:[function(require,module,exports){
+},{"./Attribute":5,"./ModelObjectEvents":"qk2Phv","./Relationship":13,"events":1,"util":2}],"qk2Phv":[function(require,module,exports){
 var ModelObjectEvents = {
     ATTRIBUTE_ADDED : 'attributeAdded',
     ATTRIBUTE_REMOVED : 'attributeRemoved',
@@ -795,7 +799,7 @@ var ModelObjectEvents = {
 
 module.exports = ModelObjectEvents;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Relationship = function (model, type) {
     this.model = model;
     this.type = type;
