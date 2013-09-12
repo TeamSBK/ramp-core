@@ -1,2 +1,0 @@
-var EventAggregator = function () {
-};
