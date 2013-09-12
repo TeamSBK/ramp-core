@@ -3,6 +3,7 @@ html
     head
         title= "Real time web chat"
         //script(src='/chat.js')
+        script(src='/model-admin.js')
         script(src='/assets/js/underscore/underscore-min.js')
         script(src='/assets/js/jquery/jquery-1.10.2.min.js')
         script(src='/assets/js/backbone/backbone-min.js')
@@ -13,22 +14,12 @@ html
         script(src='/backbone/views/view.js')
 
         script(src='/socket.io/socket.io.js')
-        script(src='/model-admin.js')
         script(src='/app.js')
 
         //bootstrap
         link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap-theme.min.css')
         link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap.min.css')
         script(src='/assets/js/bootstrap/bootstrap.min.js')
-
-        //move to router when you get it running
-        script.
-          $(function(){
-            sample_admin = ["zample","zample2"];
-            view = new RampBackbone.Views.MainView({el: "#sidebar", model_admin: sample_admin});
-            view.render();
-          });
-
     body
         .container
             .row

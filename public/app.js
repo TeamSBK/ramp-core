@@ -34,4 +34,11 @@ window.onload = function () {
     });
 
     Backbone.history.start();
+
+	//test ko lang to -ace
+	admin.createModel("ace");
+	admin.createModel("weto");
+
+	view = new RampBackbone.Views.MainView({el: "#sidebar", model_admin: admin});
+	view.render();
 };
