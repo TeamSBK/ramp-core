@@ -24,13 +24,18 @@ html
         //move to router when you get it running
         script.
           $(function(){
-            view = new RampBackbone.Views.MainView({el: "#sidebar"});
+            sample_admin = ["zample","zample2"];
+            view = new RampBackbone.Views.MainView({el: "#sidebar", model_admin: sample_admin});
             view.render();
           });
 
     body
-        #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
-        #sidebar
-        .controls
-            input#field(style='width:350px;')
-            input#send(type='button', value='send')
+        .container
+            .row
+                .col-md-7
+                    #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
+                    .controls
+                        input#field(style='width:350px;')
+                        input#send(type='button', value='send')
+                .col-md-5
+                    #sidebar

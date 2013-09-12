@@ -1,6 +1,7 @@
 window.JST = {}
 window.JST['index'] = _.template(
-    "<div class='view'> \
-        <h1>I placed a div with a title</h1> \
+    "<div class='well'> \
+        <h1>Model List</h1> \
+        <div class='btn btn-info show_list'>Show This!</div> \
     </div>"
 );
