@@ -6,11 +6,8 @@
         "socket.io": "latest",
         "express": "latest",
         "jade": "latest",
-<<<<<<< HEAD
-        "model-admin": "git+https://github.com/wetoolaguer/model-admin.git"
-=======
+        "model-admin": "git+https://github.com/wetoolaguer/model-admin.git",
         "firebase": "latest"
->>>>>>> 0e7daaf7608ef8afb411e96a19586dc7d4c0e439
     },
     "author": "Weto Olaguer"
 }
