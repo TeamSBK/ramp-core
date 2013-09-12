@@ -1,13 +1,14 @@
-RampBackbone.Routers.Router = Backbone.Router.extend({
+RampBackbone.Routers.AppRouter = Backbone.Router.extend({
     routes: {
         "/" : "showIndex",
         "/model" : "showModel"
     },
 
-    showIndex = function(){
+    showIndex: function(){
         console.log("andito po me");
     },
-    showModel= function(){
+
+    showModel: function(){
         console.log("Model me bitches");
     }
 });
