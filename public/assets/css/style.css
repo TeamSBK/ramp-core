@@ -1,0 +1,51 @@
+body {
+  background: url('/assets/images/bg.png');
+}
+
+.border {
+  border: 1px solid #000;
+  padding: -1px;
+}
+
+.rounded-corners {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.margin0 {
+  margin: 0 !important;
+}
+
+.model-represent-box {
+  overflow: hidden;
+}
+
+.model-box {
+  height: 150px;
+  width: 150px;
+  background: #75a336;
+}
+
+.model-box-header {
+  background: #acde65;
+  height: 30px;
+  text-align: center;
+  padding-top: 5px;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.sidebar {
+  background: #75a336;
+}
+
+.view-all-models {
+  background: #acde65;
+  height: 50px;
+  display: block;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 15px;
+}
