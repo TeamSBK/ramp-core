@@ -3,7 +3,7 @@
     "models": [
         {
             "name" : "User",
-            "attributes" : [{"name":"string"},{"age":10}],
+            "attributes" : [{"name":"string"},{"age":"number"}],
             "relationships" : [{"friend":"has_many"},{"group":"belongs_to"}]
         }
     ]

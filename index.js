@@ -2,6 +2,7 @@ var express = require("express");
 var Firebase = require('firebase');
 var app = express();
 var port = 8000;
+var ModelAdmin = require("model-admin");
 
 //Set view
 app.set('views', __dirname + '/tpl');
@@ -21,20 +22,16 @@ app.get("/", function(req, res){
 });
 
 app.get("/get_app/:id", function(req, res) {
-  var modelAdmin = new Firebase('https://ramp-model.firebaseio.com/model-admin');
-  modelAdmin.on('value', function(snapshot) {
-    
-    var result = findById(snapshot.val(), req.params.id);
-    if (result instanceof Object) {
-      res.send(JSON.stringify(result));
-    } else {
-      res.status(404).send(result);
-    }
-  });
-});
+    var modelAdmin = new Firebase('https://ramp-model.firebaseio.com/model-admin');
+    modelAdmin.on('value', function(snapshot) {
 
-app.get("/:room", function(req, res){
-    res.render("weto");
+        var result = findById(snapshot.val(), req.params.id);
+        if (result instanceof Object) {
+            res.send(JSON.stringify(result));
+        } else {
+            res.status(404).send(result);
+        }
+    });
 });
 
 io.sockets.on('connection', function (socket) {
