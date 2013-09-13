@@ -1,36 +1,50 @@
 !!!
 html
-    head
-        title= "Real time web chat"
-        //script(src='/chat.js')
-        script(src='/assets/js/underscore/underscore-min.js')
-        script(src='/assets/js/jquery/jquery-1.10.2.min.js')
-        script(src='/assets/js/backbone/backbone-min.js')
+  head
+    title= "Ramp Model"
+    //script(src='/chat.js')
+    script(src='/assets/js/underscore/underscore-min.js')
+    script(src='/assets/js/jquery/jquery-1.10.2.min.js')
+    script(src='/assets/js/backbone/backbone-min.js')
 
-        script(src='/backbone/RampBackbone.js')
-        script(src='/backbone/templates/jst.js')
-        script(src='/backbone/routers/router.js')
-        script(src='/backbone/views/view.js')
+    script(src='/backbone/RampBackbone.js')
+    script(src='/backbone/templates/jst.js')
+    script(src='/backbone/routers/router.js')
+    script(src='/backbone/views/view.js')
 
-        script(src='/socket.io/socket.io.js')
-        script(src='/model-admin.js')
-        script(src='/app.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/model-admin.js')
+    script(src='/app.js')
 
-        //bootstrap
-        link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap-theme.min.css')
-        link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap.min.css')
-        script(src='/assets/js/bootstrap/bootstrap.min.js')
+    //bootstrap
+    link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', href='/assets/css/style.css')
+    script(src='/assets/js/bootstrap/bootstrap.min.js')
 
-        //move to router when you get it running
-        script.
-          $(function(){
-            view = new RampBackbone.Views.MainView({el: "#sidebar"});
-            view.render();
-          });
+    //move to router when you get it running
+    script.
+      $(function(){
+        view = new RampBackbone.Views.MainView({el: "#sidebar"});
+        view.render();
+        $('.full-height').height($(window).height());
+      });
 
-    body
-        #content(style='width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;')
-        #sidebar
-        .controls
-            input#field(style='width:350px;')
-            input#send(type='button', value='send')
+  body
+    .row.margin0.full-height
+      .col-md-12
+        .row.full-height
+          .col-md-10.border
+            .row.full-height
+              .col-md-12
+                img(src='/assets/images/logo.png')
+              .col-md-12.add-model-box
+                button.add-model.rounded-corners= "ADD MODEL"
+              .col-md-12.model-represent-box
+                .model-box.rounded-corners
+                  .model-box-header.rounded-corners
+                    = "USER"
+          .col-md-2.full-height.sidebar
+            .row
+              .col-md-12.view-all-models
+                = "VIEW ALL MODELS"
