@@ -6,6 +6,9 @@ window.onload = function () {
 
     admin = new ModelAdmin('SampleAdmin');
 
+    window.admin = admin;
+    console.log(admin);
+
     var socket = io.connect('http://loacalhost:8000');
 
     admin = new ModelAdmin('SampleAdmin');
@@ -34,4 +37,5 @@ window.onload = function () {
     });
 
     Backbone.history.start();
+    appCanvass = new AppCanvass(admin);
 };
