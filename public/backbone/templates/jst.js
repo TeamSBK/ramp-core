@@ -9,9 +9,25 @@ JST['index'] = _.template(
 );
 
 JST['listEntry'] = _.template(
-    "<div class='row'>\
+    "<div class='row list-entry'>\
         <div class='col-md-12'> \
             <h3><%-name %></h3> \
+        </div> \
+    </div> \
+    "
+);
+
+JST['modelView'] = _.template(
+    "<div class='row'> \
+        <div class='col-md-12'> \
+           <span class='label label-default'>Name</span> \
+           <input type='text' value= <%-model.name%> ></input> \
+           <hr> \
+           <span class='label label-default'>Attributes</span> \
+           <div id='attributes'></div> \
+           <span class='label label-default'>Relationships</span> \
+           <div id='relationships'></div> \
+           <hr> \
         </div> \
     </div> \
     "

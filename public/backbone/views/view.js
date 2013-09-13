@@ -24,7 +24,8 @@ RampBackbone.Views.MainView = Backbone.View.extend({
         this.clearList();
 
         _.each(this.model_admin.getModelPool(), function(model){
-            view = new RampBackbone.Views.ListItemView({el: "#anydata", model: model})
+            $("#anydata").append("<div class='row list-entry'></div>");
+            view = new RampBackbone.Views.ListItemView({el: $(".list-entry").last(), model: model})
             view.render();
         });
 
@@ -32,6 +33,7 @@ RampBackbone.Views.MainView = Backbone.View.extend({
 
     clearList: function(){
         var items = $("#anydata").children();
+
         if(items.length > 0)
             $("#anydata").empty();
     }
@@ -40,12 +42,34 @@ RampBackbone.Views.MainView = Backbone.View.extend({
 
 RampBackbone.Views.ListItemView = Backbone.View.extend({
     template: JST["listEntry"],
+
+    events: {
+        "click .list-entry" : "showModel"
+    },
+
     initialize: function(options){
         this.el = options.el;
         this.model = options.model;
     },
 
     render: function(){
-        $(this.el).append(this.template({name: this.model.name}))
+        $(this.el).html(this.template({name: this.model.name}))
+    },
+
+    showModel: function(){
+        view = new RampBackbone.Views.ModelView({el: "#anydata",model: this.model});
+        view.render();
+    }
+});
+
+RampBackbone.Views.ModelView = Backbone.View.extend({
+    template: JST["modelView"],
+    initialize: function(options){
+        this.el = options.el;
+        this.model = options.model;
+    },
+
+    render: function(){
+        $(this.el).html(this.template({model: this.model}))
     }
 });
