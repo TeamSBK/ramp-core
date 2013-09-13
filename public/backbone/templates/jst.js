@@ -20,14 +20,58 @@ JST['listEntry'] = _.template(
 JST['modelView'] = _.template(
     "<div class='row'> \
         <div class='col-md-12'> \
-           <span class='label label-default'>Name</span> \
-           <input type='text' value= <%-model.name%> ></input> \
-           <hr> \
-           <span class='label label-default'>Attributes</span> \
-           <div id='attributes'></div> \
-           <span class='label label-default'>Relationships</span> \
-           <div id='relationships'></div> \
-           <hr> \
+           <h3> \
+                <span class='label label-default'>Name</span> \
+                <strong><%- model.name%></strong> \
+            </h3> \
+           <h3> \
+                <span class='label label-default'>Attributes</span> \
+                <span class='btn btn-info add-model'>Add</span> \
+           </h3> \
+           <div id='add-attribute'></div> \
+           <div> \
+                <ul id='attributes'> \
+                </ul> \
+           </div> \
+           <h3> \
+                <span class='label label-default'>Relationships</span> \
+           </h3> \
+           <div id='add-relationship'></div> \
+           <div> \
+                <ul id='relationships'> \
+                </ul> \
+           </div> \
+        </div> \
+    </div> \
+    "
+);
+
+JST['attributeView'] = _.template(
+    "<li> \
+        <h4> \
+            <span class='label label-default'><%- attr.attribute%></span> \
+            : \
+            <span class='label label-default'><%- attr.type%></span> \
+        </h4> \
+    </li> \
+    "
+);
+
+JST['addModelView'] = _.template(
+    "<div class='row'> \
+        <div class='col-md-12 well'> \
+            <h4> \
+                <span class='label label-default'>Attribute Name</span> \
+                <input id= 'attribute-name' type='text'></input> \
+            </h4> \
+            <h4> \
+                <span class='label label-default'>Attribute Type</span> \
+                <select id= 'attribute-type'></select> \
+            </h4> \
+            <h4> \
+                <span class='btn btn-info save-model'>Save</span> \
+                <span class='btn btn-default'>Cancel</span> \
+            </h4> \
         </div> \
     </div> \
     "
