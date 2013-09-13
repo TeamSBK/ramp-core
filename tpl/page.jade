@@ -36,7 +36,7 @@ html
       .col-md-12
         .row.full-height
           .col-md-10.border
-            .row.full-height
+            .row.full-height#body-container
               .col-md-12
                 img(src='/assets/images/logo.png')
               canvas#demoImage(width="900" height="900")
@@ -44,3 +44,10 @@ html
             .row
               .col-md-12.view-all-models
                 = "VIEW ALL MODELS"
+
+
+    script.
+      $(function(){
+        $('#demoImage').attr('height', $('#body-container').height());
+        $('#demoImage').attr('width', $('#body-container').width());
+      });
