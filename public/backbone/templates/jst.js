@@ -35,6 +35,7 @@ JST['modelView'] = _.template(
            </div> \
            <h3> \
                 <span class='label label-default'>Relationships</span> \
+                <span class='btn btn-info add-rel'>Add</span> \
            </h3> \
            <div id='add-relationship'></div> \
            <div> \
@@ -52,6 +53,7 @@ JST['attributeView'] = _.template(
             <span class='label label-default'><%- attr.attribute%></span> \
             : \
             <span class='label label-default'><%- attr.type%></span> \
+            <span class='label label-danger remove-attr'>Remove</span> \
         </h4> \
     </li> \
     "

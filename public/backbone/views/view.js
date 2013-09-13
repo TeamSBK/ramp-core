@@ -67,18 +67,18 @@ RampBackbone.Views.ListItemView = Backbone.View.extend({
 
 RampBackbone.Views.ModelView = Backbone.View.extend({
     events: {
-        "click .add-model" : "addModel"
+        "click .add-model" : "addModel",
+        "click .add-relationship" : "addRelationship"
     },
 
     template: JST["modelView"],
-    attr_template: JST["attributeView"],
 
     initialize: function(options){
         _that = this
         this.el = options.el;
-        this.view;
         this.model = options.model;
         this.model.on(ModelObjectEvents.ATTRIBUTE_ADDED, function(){ _that.render() })
+        this.model.on(ModelObjectEvents.ATTRIBUTE_REMOVED, function(){ _that.render() })
     },
 
     render: function(){
@@ -87,15 +87,51 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
     },
 
     addModel: function(){
-        this.view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model});
-        this.view.render();
+        view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model});
+        view.render();
     },
+
+    removeAttribute: function(){
+
+    },
+
+    //addRelationship: function(){
+        //view = new RampBackbone.Views.AddRelationshipView({el: "#add-relationship"}, model: this.model);
+        //view.render
+    //},
 
     showAttributes: function(){
         _.each(this.model.getAttributes(),function(attribute){
-                _that.$("#attributes").append(_that.attr_template({attr: attribute}));
+                _that.$("#attributes").append("<li></li>");
+                view = new RampBackbone.Views.AttributeView({el:_that.$("li").last(), attr: attribute, model: _that.model});
+                view.render();
         });
     },
+});
+
+RampBackbone.Views.AttributeView = Backbone.View.extend({
+    events: {
+        "click .remove-attr" : "removeAttribute"
+    },
+
+    template: JST["attributeView"],
+
+    initialize: function(options){
+        this.el = options.el;
+        this.attr = options.attr;
+        this.model = options.model;
+    },
+
+    render: function(){
+        $(this.el).html(this.template({attr: this.attr}));
+    },
+
+    removeAttribute: function(){
+        this.$(".remove-attr").unbind();
+        this.model.removeAttribute(this.attr.attribute);
+        this.remove();
+    }
+
 });
 
 RampBackbone.Views.AddModelView = Backbone.View.extend({
