@@ -4,17 +4,22 @@ var ModelAdminEvents = require ('./lib/ModelAdminEvents.js');
 
 var ModelRepresentation = function (labelTxt) {
     self = this;
-    this.labelText = labelTxt;
     this.initialize = function () {
+        colors = ["crimson", "yellow", "blue"];
+        var rand = Math.floor((Math.random(3)*3));
         var rect = new createjs.Shape();
-        rect.graphics.beginFill("blue").drawRect(0,0,100,100);
 
-        var label = new createjs.Text(self.labelText, "bold 14px Arial", "#FFFFFF");
+        rect.graphics.beginFill(colors[rand]).drawRect(0,0,100,100);
+
+        var label = new createjs.Text(labelTxt, "bold 14px Arial", "#000000");
         label.textAlign = "center";
 
-        self.addChild(rect, label);
+        var container = new createjs.Container();
+        container.addChild(rect, label);
 
-        self.onPress = function(evt) {
+        self.addChild(container);
+
+        container.onPress = function(evt) {
             var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
 
             // add a handler to the event object's onMouseMove callback
@@ -26,7 +31,7 @@ var ModelRepresentation = function (labelTxt) {
         };
     };
 
-    this.initialize(labelText);
+    this.initialize(labelTxt);
     this.x = 100;
     this.y = 100;
 };
