@@ -52,7 +52,6 @@ RampBackbone.Views.ListItemView = Backbone.View.extend({
     initialize: function(options){
         this.el = options.el;
         this.model = options.model;
-        this.view;
     },
 
     render: function(){
@@ -91,14 +90,10 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
         view.render();
     },
 
-    removeAttribute: function(){
-
+    addRelationship: function(){
+        view = new RampBackbone.Views.AddRelationshipView({el: "#add-relationship", model: this.model});
+        view.render();
     },
-
-    //addRelationship: function(){
-        //view = new RampBackbone.Views.AddRelationshipView({el: "#add-relationship"}, model: this.model);
-        //view.render
-    //},
 
     showAttributes: function(){
         _.each(this.model.getAttributes(),function(attribute){
@@ -107,6 +102,40 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
                 view.render();
         });
     },
+});
+
+RampBackbone.Views.AddRelationshipView = Backbone.View.extend({
+    events: {
+        "click .save-model" : "saveAttribute",
+        "click .btn-default" : "removeMe"
+    },
+
+    template: JST["addRelationshipView"],
+    initialize: function(options){
+        this.el = options.el;
+        this.model = options.model;
+        this.relationship_types = ["has_many", "has_one", "belongs_to"];
+    },
+
+    render: function(){
+       $(this.el).html(this.template());
+
+       this.addRelationshipTypes();
+    },
+
+    removeMe: function(){
+        $(this.el).empty();
+        $(this.el).unbind();
+    },
+
+    addRelationshipTypes: function(){
+        _.each(this.relationship_types, function(val){
+            this.$("#relationship-type").append(
+                "<option value='"+val+"'>"+val+"</option>"
+            );
+        });
+    },
+
 });
 
 RampBackbone.Views.AttributeView = Backbone.View.extend({
@@ -130,7 +159,7 @@ RampBackbone.Views.AttributeView = Backbone.View.extend({
         this.$(".remove-attr").unbind();
         this.model.removeAttribute(this.attr.attribute);
         this.remove();
-    }
+    },
 
 });
 
