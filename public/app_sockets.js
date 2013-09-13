@@ -1,17 +1,12 @@
-window.onload = function () {
+var openSockets = function (admin) {
 
     var ModelAdmin = require ('./lib/ModelAdmin.js');
     var ModelAdminEvents = require ('./lib/ModelAdminEvents.js');
     var ModelObjectEvents = require ('./lib/ModelObjectEvents.js');
 
-    admin = new ModelAdmin('SampleAdmin');
-
-    window.admin = admin;
-    console.log(admin);
+    var modelAdmin = admin;
 
     var socket = io.connect('http://loacalhost:8000');
-
-    admin = new ModelAdmin('SampleAdmin');
 
     admin.on(ModelAdminEvents.MODEL_CREATED, function (model) {
         socket.emit(ModelAdminEvents.MODEL_CREATED, {});
@@ -35,7 +30,4 @@ window.onload = function () {
             console.log("There is a problem:", data);
         }
     });
-
-    Backbone.history.start();
-    appCanvass = new AppCanvass(admin);
 };
