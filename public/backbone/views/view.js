@@ -33,6 +33,7 @@ RampBackbone.Views.MainView = Backbone.View.extend({
     },
 
     clearList: function(){
+        $("#anydata").unbind();
         var items = $("#anydata").children();
 
         if(items.length > 0)
@@ -51,6 +52,7 @@ RampBackbone.Views.ListItemView = Backbone.View.extend({
     initialize: function(options){
         this.el = options.el;
         this.model = options.model;
+        this.view;
     },
 
     render: function(){
@@ -74,6 +76,7 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
     initialize: function(options){
         _that = this
         this.el = options.el;
+        this.view;
         this.model = options.model;
         this.model.on(ModelObjectEvents.ATTRIBUTE_ADDED, function(){ _that.render() })
     },
@@ -84,8 +87,8 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
     },
 
     addModel: function(){
-        view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model});
-        view.render();
+        this.view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model});
+        this.view.render();
     },
 
     showAttributes: function(){
@@ -134,5 +137,6 @@ RampBackbone.Views.AddModelView = Backbone.View.extend({
 
     removeMe: function(){
         $(this.el).empty();
+        $(this.el).unbind();
     }
 });
