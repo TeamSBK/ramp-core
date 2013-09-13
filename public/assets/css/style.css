@@ -13,6 +13,16 @@ body {
   border-radius: 3px;
 }
 
+.add-model-box {
+	margin-bottom: 10px;
+}
+
+.add-model {
+	background: #acde65;
+	border: 0;
+	width: 120px;
+}
+
 .margin0 {
   margin: 0 !important;
 }
@@ -29,6 +39,7 @@ body {
 
 .model-box-header {
   background: #acde65;
+	cursor: move;
   height: 30px;
   text-align: center;
   padding-top: 5px;
