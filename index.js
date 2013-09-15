@@ -1,9 +1,11 @@
 var express = require("express");
 var Firebase = require('firebase');
+var ModelAdmin = require("model-admin").ModelAdmin;
+var ModelAdminEvents = require("model-admin").ModelAdminEvents;
+var ServerAdminEvents = require("model-admin").ServerAdminEvents;
+
 var app = express();
 var port = 8000;
-var ModelAdmin = require("model-admin");
-
 //Set view
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
@@ -16,6 +18,19 @@ var io = require('socket.io').listen(app.listen(port));
 // var mainFirebase = new Firebase('https://ramp-model.firebaseio.com/');
 var fieldTypes = new Firebase('https://ramp-model.firebaseio.com/field-types');
 var modelRels = new Firebase('https://ramp-model.firebaseio.com/relationships');
+
+io.sockets.on('connection', function (socket) {
+    socket.emit(ServerAdminEvents.SOCKET_CONNECTED, socket.id);
+
+    socket.on(ModelAdminEvents.MODEL_CREATED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.MODEL_CREATED, history);
+    });
+});
+
+var init = function () {
+};
+
+init ();
 
 app.get("/", function(req, res){
     res.render("page");
@@ -31,13 +46,6 @@ app.get("/get_app/:id", function(req, res) {
         } else {
             res.status(404).send(result);
         }
-    });
-});
-
-io.sockets.on('connection', function (socket) {
-    socket.on('send', function (data) {
-        socket.emit('message', { message: 'welcome to the chat' });
-        io.sockets.emit('message', data);
     });
 });
 

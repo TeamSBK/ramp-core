@@ -2,6 +2,8 @@
 html
   head
     title= "Ramp Model"
+    script(src='/model-admin.js')
+
     script(src='/assets/js/underscore/underscore-min.js')
     script(src='/assets/js/jquery/jquery-1.10.2.min.js')
     script(src='/assets/js/backbone/backbone-min.js')
@@ -11,10 +13,12 @@ html
     script(src='/backbone/routers/router.js')
     script(src='/backbone/views/view.js')
 
-    script(src='/socket.io/socket.io.js')
-    script(src='/model-admin.js')
     script(src='/javascripts/easeljs-0.5.0.min.js')
     script(src='/javascripts/drag_and_drop.js')
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/app_sockets.js')
+
     script(src='/app.js')
 
     //bootstrap
