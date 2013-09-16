@@ -680,9 +680,10 @@ module.exports = HistoryInterpreter;
 var HistoryWriter = function () {
 };
 
-HistoryWriter.prototype.writeHistory = function (evt, params) {
+HistoryWriter.prototype.writeHistory = function (actor, evt, params) {
     var historyObject = {};
 
+    historyObject.actor = actor;
     historyObject.eventName = evt;
     historyObject.eventParams = params;
 
@@ -716,7 +717,7 @@ var ModelAdmin = function (adminId) {
 
 util.inherits(ModelAdmin, events.EventEmitter);
 
-ModelAdmin.prototype.createModel = function (name, creatorId) {
+ModelAdmin.prototype.createModel = function (name) {
     var modelPool = this.getModelPool();
 
     //Check if the model name is already taken
@@ -726,12 +727,7 @@ ModelAdmin.prototype.createModel = function (name, creatorId) {
         }
     }
 
-	var newModel;
-	if (creatorId === 'undefined') {
-		newModel = new ModelObject (name);
-	} else {
-		newModel = new ModelObject(name, creatorId);
-	}
+	var newModel = new ModelObject (name);
 
     modelPool.push (newModel);
     this.emit(ModelAdminEvents.MODEL_CREATED, newModel);
@@ -787,12 +783,11 @@ var ModelObjectEvents = require("./ModelObjectEvents");
 var util = require("util");
 var events = require("events");
 
-var ModelObject = function (modelName, creatorId) {
+var ModelObject = function (modelName) {
     if (typeof modelName === 'undefined') {
         throw Error (new Error ('Model Name parameter required.'));
     }
 
-	this.creatorId = typeof creatorId !== 'undefined'? creatorId:'';
     this.modelName = modelName;
 
     var attributes = [];
@@ -878,7 +873,7 @@ ModelObject.prototype.removeRelationship = function (model) {
 
 module.exports = ModelObject;
 
-},{"./Attribute":5,"./ModelObjectEvents":"qk2Phv","./Relationship":15,"events":1,"util":2}],"qk2Phv":[function(require,module,exports){
+},{"./Attribute":5,"./ModelObjectEvents":"qk2Phv","./Relationship":13,"events":1,"util":2}],"qk2Phv":[function(require,module,exports){
 var ModelObjectEvents = {
     ATTRIBUTE_ADDED : 'attributeAdded',
     ATTRIBUTE_REMOVED : 'attributeRemoved',
@@ -888,11 +883,7 @@ var ModelObjectEvents = {
 
 module.exports = ModelObjectEvents;
 
-},{}],"./lib/Historian.js":[function(require,module,exports){
-module.exports=require('hqu3+/');
-},{}],"./lib/ModelObjectEvents.js":[function(require,module,exports){
-module.exports=require('qk2Phv');
-},{}],15:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Relationship = function (owner, model, type) {
     this.owner = owner;
     this.model = model;
@@ -914,15 +905,19 @@ var ServerAdminEvents = {
 
 module.exports = ServerAdminEvents;
 
-},{}],"./lib/ServerAdminEvents.js":[function(require,module,exports){
-module.exports=require('WHy8x9');
+},{}],"./lib/Historian.js":[function(require,module,exports){
+module.exports=require('hqu3+/');
 },{}],"./lib/ModelAdminEvents.js":[function(require,module,exports){
 module.exports=require('AuZHws');
-},{}],"./lib/HistoryInterpreter.js":[function(require,module,exports){
-module.exports=require('zklePh');
-},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
-module.exports=require('dM8Aoc');
 },{}],"./lib/HistoryWriter.js":[function(require,module,exports){
 module.exports=require('juKjgH');
+},{}],"./lib/HistoryInterpreter.js":[function(require,module,exports){
+module.exports=require('zklePh');
+},{}],"./lib/ModelObjectEvents.js":[function(require,module,exports){
+module.exports=require('qk2Phv');
+},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
+module.exports=require('dM8Aoc');
+},{}],"./lib/ServerAdminEvents.js":[function(require,module,exports){
+module.exports=require('WHy8x9');
 },{}]},{},[4])
 ;

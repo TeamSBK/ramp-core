@@ -5,7 +5,7 @@ var ModelAdminEvents = require("model-admin").ModelAdminEvents;
 var ServerAdminEvents = require("model-admin").ServerAdminEvents;
 
 var app = express();
-var port = 8000;
+var port = 8001;
 //Set view
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
@@ -24,6 +24,10 @@ io.sockets.on('connection', function (socket) {
 
     socket.on(ModelAdminEvents.MODEL_CREATED, function (history) {
         socket.broadcast.emit(ServerAdminEvents.MODEL_CREATED, history);
+    });
+
+    socket.on(ModelAdminEvents.MODEL_DELETED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.MODEL_DELETED, history);
     });
 });
 
