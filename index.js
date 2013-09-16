@@ -29,6 +29,22 @@ io.sockets.on('connection', function (socket) {
     socket.on(ModelAdminEvents.MODEL_DELETED, function (history) {
         socket.broadcast.emit(ServerAdminEvents.MODEL_DELETED, history);
     });
+
+    socket.on(ModelAdminEvents.ATTRIBUTE_ADDED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_ADDED, history);
+    });
+
+    socket.on(ModelAdminEvents.ATTRIBUTE_REMOVED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_REMOVED, history);
+    });
+
+    socket.on(ModelAdminEvents.RELATIONSHIP_ADDED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_ADDED, history);
+    });
+
+    socket.on(ModelAdminEvents.RELATIONSHIP_REMOVED, function (history) {
+        socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_REMOVED, history);
+    });
 });
 
 var init = function () {
