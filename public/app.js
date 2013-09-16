@@ -37,5 +37,4 @@ window.onload = function () {
     });
 
     Backbone.history.start();
-    appCanvass = new AppCanvass(admin);
 };

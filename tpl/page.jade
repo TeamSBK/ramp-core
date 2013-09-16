@@ -4,8 +4,11 @@ html
     title= "Ramp Model"
     script(src='/assets/js/underscore/underscore-min.js')
     script(src='/assets/js/jquery/jquery-1.10.2.min.js')
-    script(src='/assets/js/backbone/backbone-min.js')
+    script(src='/assets/js/jquery/jqueryui-1.9.2.min.js')
+    script(src='/assets/js/dnd/jquery.jsPlumb-1.5.2-min.js')
 
+
+    script(src='/assets/js/backbone/backbone-min.js')
     script(src='/backbone/RampBackbone.js')
     script(src='/backbone/templates/jst.js')
     script(src='/backbone/routers/router.js')
@@ -13,8 +16,6 @@ html
 
     script(src='/socket.io/socket.io.js')
     script(src='/model-admin.js')
-    script(src='/javascripts/easeljs-0.5.0.min.js')
-    script(src='/javascripts/drag_and_drop.js')
     script(src='/app.js')
 
     //bootstrap
@@ -41,16 +42,19 @@ html
                 img(src='/assets/images/logo.png')
               .col-md-12.add-model-box
                 button.add-model.rounded-corners= "ADD MODEL"
-              canvas#demoImage(width="900" height="900")
+              .col-md-12.model-represent-box#model-container
+                .model-box.rounded-corners.model-container
+                  .model-box-header.rounded-corners
+                    = "STUDENTS"
+                .model-box.rounded-corners.model-container
+                  .model-box-header.rounded-corners
+                    = "USERS"
+
 
           .col-md-2.full-height.sidebar
             .row
               .col-md-12.view-all-models
                 = "VIEW ALL MODELS"
+    script(src='/assets/js/dnd/drag_and_drop.js')
 
 
-    script.
-      $(function(){
-        $('#demoImage').attr('height', $('#body-container').height());
-        $('#demoImage').attr('width', $('#body-container').width());
-      });
