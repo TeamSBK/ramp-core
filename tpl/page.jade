@@ -6,34 +6,28 @@ html
 
     script(src='/assets/js/underscore/underscore-min.js')
     script(src='/assets/js/jquery/jquery-1.10.2.min.js')
-    script(src='/assets/js/backbone/backbone-min.js')
+    script(src='/assets/js/jquery/jqueryui-1.9.2.min.js')
+    script(src='/assets/js/dnd/jquery.jsPlumb-1.5.2-min.js')
 
+
+    script(src='/assets/js/backbone/backbone-min.js')
     script(src='/backbone/RampBackbone.js')
     script(src='/backbone/templates/jst.js')
     script(src='/backbone/routers/router.js')
     script(src='/backbone/views/view.js')
 
-    script(src='/javascripts/easeljs-0.5.0.min.js')
-    script(src='/javascripts/drag_and_drop.js')
-
     script(src='/socket.io/socket.io.js')
     script(src='/app_sockets.js')
-
-    script(src='/app.js')
+    script(src='/assets/js/dnd/drag_and_drop.js')
 
     //bootstrap
     link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap.min.css')
     link(rel='stylesheet', href='/assets/css/style.css')
     script(src='/assets/js/bootstrap/bootstrap.min.js')
+    script(src='/app.js')
 
     //move to router when you get it running
-    script.
-      $(function(){
-        view = new RampBackbone.Views.MainView({el: "#sidebar"});
-        view.render();
-        $('.full-height').height($(window).height());
-      });
 
   body
     .row.margin0.full-height
@@ -45,16 +39,7 @@ html
                 img(src='/assets/images/logo.png')
               .col-md-12.add-model-box
                 button.add-model.rounded-corners= "ADD MODEL"
-              canvas#demoImage(width="900" height="900")
+              .col-md-12.model-represent-box#model-container
 
           .col-md-2.full-height.sidebar
-            .row
-              .col-md-12.view-all-models
-                = "VIEW ALL MODELS"
 
-
-    script.
-      $(function(){
-        $('#demoImage').attr('height', $('#body-container').height());
-        $('#demoImage').attr('width', $('#body-container').width());
-      });
