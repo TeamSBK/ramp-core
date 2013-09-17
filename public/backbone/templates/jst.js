@@ -60,6 +60,18 @@ JST['attributeView'] = _.template(
     "
 );
 
+JST['relationshipView'] = _.template(
+    "<li> \
+        <h4> \
+            <span class='label label-default'><%- rel.type%></span> \
+            : \
+            <span class='label label-default'><%- rel.withModel%></span> \
+            <span class='label label-danger remove-rel'>Remove</span> \
+        </h4> \
+    </li> \
+    "
+);
+
 JST['addModelView'] = _.template(
     "<div class='row'> \
         <div class='col-md-12 well'> \
