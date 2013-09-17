@@ -28,17 +28,6 @@ html
     script(src='/app.js')
 
     //move to router when you get it running
-    script.
-      $(function(){
-        view = new RampBackbone.Views.MainView({el: "#sidebar"});
-        view.render();
-        $('.full-height').height($(window).height());
-
-        $('.add-model').click(function(){
-          var model_name = prompt('Enter model name:');
-          admin.createModel(model_name);
-        });
-      });
 
   body
     .row.margin0.full-height
@@ -53,7 +42,4 @@ html
               .col-md-12.model-represent-box#model-container
 
           .col-md-2.full-height.sidebar
-            .row
-              .col-md-12.view-all-models
-                = "VIEW ALL MODELS"
 
