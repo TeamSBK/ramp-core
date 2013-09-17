@@ -5,5 +5,4 @@ window.onload = function () {
     openSockets(admin);
 
     Backbone.history.start();
-    appCanvass = new AppCanvass(admin);
 };
