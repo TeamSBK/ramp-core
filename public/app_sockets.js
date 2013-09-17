@@ -8,7 +8,7 @@ var openSockets = function (admin) {
     var modelAdmin = admin;
     var writer = new HistoryWriter();
 
-    var socket = io.connect('http://localhost:8001');
+    var socket = io.connect('http://localhost:8002');
     var socketId;
 
     //send actions

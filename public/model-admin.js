@@ -194,7 +194,9 @@ EventEmitter.listenerCount = function(emitter, type) {
   return ret;
 };
 
-},{"__browserify_process":3}],2:[function(require,module,exports){
+},{"__browserify_process":4}],"./lib/ServerAdminEvents.js":[function(require,module,exports){
+module.exports=require('WHy8x9');
+},{}],3:[function(require,module,exports){
 var events = require('events');
 
 exports.isArray = isArray;
@@ -541,7 +543,7 @@ exports.format = function(f) {
   return str;
 };
 
-},{"events":1}],3:[function(require,module,exports){
+},{"events":1}],4:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -595,8 +597,6 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],"./lib/HistoryInterpreter.js":[function(require,module,exports){
-module.exports=require('zklePh');
 },{}],5:[function(require,module,exports){
 
 },{}],6:[function(require,module,exports){
@@ -792,9 +792,54 @@ ModelAdmin.prototype.removeRelationship = function (modelName, withModel) {
     this.emit(ModelAdminEvents.RELATIONSHIP_REMOVED, relationshipObj);
 };
 
+ModelAdmin.prototype.modelToJson = function () {
+    var modelPool = this.getModelPool();
+    var modelAdminJson = {};
+
+    modelAdminJson.id = this.getId();
+    modelAdminJson.models = [];
+
+    for (var i = 0; i < modelPool.length; i++) {
+        var model = modelPool[i];
+        var modelEntry = {};
+
+        modelEntry.name = model.modelName;
+        modelEntry.attributes = [];
+        modelEntry.relationships = [];
+
+        //loop through the attributes
+        var attributes = model.getAttributes();
+
+        for (var j = 0; j < attributes.length; j++) {
+            var attributeObj = attributes[j];
+            var attributeEntry = {};
+            attributeEntry[attributeObj.attribute] = attributeObj.type;
+
+            modelEntry.attributes.push(attributeEntry);
+        }
+
+        //loop through relationships
+        var relationships = model.getRelationships();
+
+        for (var k = 0; k < relationships.length; k++) {
+            var relationshipObj = relationships[k];
+            var relationshipEntry = {};
+            relationshipEntry[relationshipObj.withModel] = relationshipObj.type;
+
+            modelEntry.relationships.push(relationshipEntry);
+        }
+
+        modelAdminJson.models.push(modelEntry);
+    }
+
+    modelAdminJson = JSON.stringify(modelAdminJson);
+
+    return modelAdminJson;
+};
+
 module.exports = ModelAdmin;
 
-},{"./ModelAdminEvents":"AuZHws","./ModelObject":12,"events":1,"util":2}],"AuZHws":[function(require,module,exports){
+},{"./ModelAdminEvents":"AuZHws","./ModelObject":12,"events":1,"util":3}],"AuZHws":[function(require,module,exports){
 var ModelAdminEvents = {
     MODEL_CREATED : 'modelCreated',
     MODEL_DELETED : 'modelDeleted',
@@ -899,7 +944,9 @@ ModelObject.prototype.removeRelationship = function (withModel) {
 
 module.exports = ModelObject;
 
-},{"./Attribute":6,"./Relationship":13,"util":2}],13:[function(require,module,exports){
+},{"./Attribute":6,"./Relationship":14,"util":3}],"./lib/Historian.js":[function(require,module,exports){
+module.exports=require('hqu3+/');
+},{}],14:[function(require,module,exports){
 var Relationship = function (owner, withModel, type) {
     this.owner = owner;
     this.withModel = withModel;
@@ -908,10 +955,12 @@ var Relationship = function (owner, withModel, type) {
 
 module.exports = Relationship;
 
-},{}],"./lib/Historian.js":[function(require,module,exports){
-module.exports=require('hqu3+/');
-},{}],"./lib/ServerAdminEvents.js":[function(require,module,exports){
-module.exports=require('WHy8x9');
+},{}],"./lib/HistoryInterpreter.js":[function(require,module,exports){
+module.exports=require('zklePh');
+},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
+module.exports=require('dM8Aoc');
+},{}],"./lib/ModelAdminEvents.js":[function(require,module,exports){
+module.exports=require('AuZHws');
 },{}],"WHy8x9":[function(require,module,exports){
 var ServerAdminEvents = {
     MODEL_CREATED : 'serverModelCreated',
@@ -925,11 +974,7 @@ var ServerAdminEvents = {
 
 module.exports = ServerAdminEvents;
 
-},{}],"./lib/ModelAdminEvents.js":[function(require,module,exports){
-module.exports=require('AuZHws');
 },{}],"./lib/HistoryWriter.js":[function(require,module,exports){
 module.exports=require('juKjgH');
-},{}],"./lib/ModelAdmin.js":[function(require,module,exports){
-module.exports=require('dM8Aoc');
 },{}]},{},[5])
 ;

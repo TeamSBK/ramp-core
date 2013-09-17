@@ -5,7 +5,7 @@ var ModelAdminEvents = require("model-admin").ModelAdminEvents;
 var ServerAdminEvents = require("model-admin").ServerAdminEvents;
 
 var app = express();
-var port = 8001;
+var port = 8002;
 //Set view
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
@@ -19,38 +19,38 @@ var io = require('socket.io').listen(app.listen(port));
 var fieldTypes = new Firebase('https://ramp-model.firebaseio.com/field-types');
 var modelRels = new Firebase('https://ramp-model.firebaseio.com/relationships');
 
-io.sockets.on('connection', function (socket) {
-    socket.emit(ServerAdminEvents.SOCKET_CONNECTED, socket.id);
 
-    socket.on(ModelAdminEvents.MODEL_CREATED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.MODEL_CREATED, history);
+var initSockets = function () {
+    io.sockets.on('connection', function (socket) {
+        socket.emit(ServerAdminEvents.SOCKET_CONNECTED, socket.id);
+
+        socket.on(ModelAdminEvents.MODEL_CREATED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.MODEL_CREATED, history);
+        });
+
+        socket.on(ModelAdminEvents.MODEL_DELETED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.MODEL_DELETED, history);
+        });
+
+        socket.on(ModelAdminEvents.ATTRIBUTE_ADDED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_ADDED, history);
+        });
+
+        socket.on(ModelAdminEvents.ATTRIBUTE_REMOVED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_REMOVED, history);
+        });
+
+        socket.on(ModelAdminEvents.RELATIONSHIP_ADDED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_ADDED, history);
+        });
+
+        socket.on(ModelAdminEvents.RELATIONSHIP_REMOVED, function (history) {
+            socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_REMOVED, history);
+        });
     });
-
-    socket.on(ModelAdminEvents.MODEL_DELETED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.MODEL_DELETED, history);
-    });
-
-    socket.on(ModelAdminEvents.ATTRIBUTE_ADDED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_ADDED, history);
-    });
-
-    socket.on(ModelAdminEvents.ATTRIBUTE_REMOVED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.ATTRIBUTE_REMOVED, history);
-    });
-
-    socket.on(ModelAdminEvents.RELATIONSHIP_ADDED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_ADDED, history);
-    });
-
-    socket.on(ModelAdminEvents.RELATIONSHIP_REMOVED, function (history) {
-        socket.broadcast.emit(ServerAdminEvents.RELATIONSHIP_REMOVED, history);
-    });
-});
-
-var init = function () {
 };
 
-init ();
+initSockets ();
 
 app.get("/", function(req, res){
     res.render("page");

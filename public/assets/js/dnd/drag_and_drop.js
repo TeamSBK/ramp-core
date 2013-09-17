@@ -5,27 +5,27 @@ var createDiagram = function(admin){
         activeClass:'dragActive'
     };
 
-    var sourceColor = "#ccc";
+    var sourceColor = "#75a336";
 
     var sourceEndpoint = {
         endpoint:["Dot", { radius:5 }],
         paintStyle:{ fillStyle:sourceColor},
         isSource:true,
         scope:"red dot",
-        connectorStyle:{ strokeStyle:sourceColor, lineWidth:2 },
-        connector: ["Bezier", { curviness:10 } ],
+        connectorStyle:{ strokeStyle:sourceColor, lineWidth:4 },
+        connector: ["Flowchart", {cornerRadius: 20}],
         maxConnections:3,
     };
 
     //Setting up a Target endPoint
-    var targetColor = "crimson";
+    var targetColor = "#acde65";
     var targetEndpoint = {
         endpoint:["Dot", { radius:5 }],
         paintStyle:{ fillStyle:targetColor},
         scope:"red dot",
-        connectorStyle:{ strokeStyle:targetColor, lineWidth:2 },
-        connector: ["Bezier", { curviness:10 } ],
-        connectorOverlays: [['Arrow', {width: 8, length: 15}]],
+        connectorStyle:{ strokeStyle:targetColor, lineWidth:4 },
+        connector: ["Flowchart", { cornerRadius: 20}],
+        connectorOverlays: [['Arrow', {width: 5, length: 15}]],
         maxConnections:3,
         isTarget:true,
         dropOptions : targetDropOptions
@@ -33,7 +33,7 @@ var createDiagram = function(admin){
 
     function bindEventItems() {
         var models = $("#model-container .model-container")
-        jsPlumb.addEndpoint(models, {anchor: "TopCenter"}, targetEndpoint);
+        jsPlumb.addEndpoint(models, {anchor: ["TopCenter"]}, targetEndpoint);
         jsPlumb.addEndpoint(models, {anchor: "BottomCenter"}, sourceEndpoint);
         jsPlumb.draggable(models);
     };
@@ -43,9 +43,11 @@ var createDiagram = function(admin){
 
     /* appending new box */
     jsPlumb.bind('click', function(conn) {
-        jsPlumb.detach({target: conn.targetId, source: conn.sourceId});
-        admin.removeRelationship(conn.sourceId, conn.targetId);
-        console.log('Successfully remove relationship');
+        if(confirm(' Delete relation between: ' + conn.sourceId + ' and ' + conn.targetId + '?')){
+            jsPlumb.detach({target: conn.targetId, source: conn.sourceId});
+            admin.removeRelationship(conn.sourceId, conn.targetId);
+            console.log('Successfully remove relationship');
+        }
     });
 
     function bindEvent(model) {
@@ -69,10 +71,14 @@ var createDiagram = function(admin){
         var to = jsPlumb.selectEndpoints({ target: model.withModel }).get(0);
         var attributes = []
         if(relationship === 'has_many'){
-            var attributes = [['Arrow', { width: 20, length: 30, direction: -1, location: 0.8}]];
+            var attributes = [['Arrow', { width: 30, length: 20, direction: -1, location: 0.9}],
+                             ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">has_many</p>');}, location: 0.5 }]
+                             ];
         }
         else if (relationship === 'belongs_to') {
-            var attributes = [['Diamond', { width: 20, length: 20, direction: -1, location: 0.8}]];
+            var attributes = [['Diamond', { width: 20, length: 20, direction: -1, location: 0.9}],
+                             ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">belongs_to</p>');}, location: 0.5 }]
+                             ];
         }
 
         jsPlumb.connect({ source: from, target: to, overlays: attributes });
