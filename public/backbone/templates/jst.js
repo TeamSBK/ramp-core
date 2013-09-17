@@ -1,18 +1,19 @@
 window.JST = {}
 JST['index'] = _.template(
-    "<div class='well'> \
-        <h1>Model List</h1> \
-        <div class='btn btn-info show_list'>Show This!</div> \
-        <hr> \
+    "<div class='row'>\
+        <div class='col-md-12 view-all-models show-list'> \
+            VIEW ALL MODELS \
+        </div> \
         <div id='anydata'></div> \
+        <div class='col-md-12 view-all-models'> \
+            COLLABORATE \
+        </div> \
     </div>"
 );
 
 JST['listEntry'] = _.template(
-    "<div class='row list-entry'>\
-        <div class='col-md-12'> \
-            <h3><%-name %></h3> \
-        </div> \
+    "<div class='col-md-12 list-val'> \
+        <strong><%-name %></strong> \
     </div> \
     "
 );
@@ -22,7 +23,7 @@ JST['modelView'] = _.template(
         <div class='col-md-12'> \
            <h3> \
                 <span class='label label-default'>Name</span> \
-                <strong><%- model.name%></strong> \
+                <strong><%- model.modelName%></strong> \
             </h3> \
            <h3> \
                 <span class='label label-default'>Attributes</span> \

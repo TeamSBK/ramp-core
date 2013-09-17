@@ -1,11 +1,10 @@
 var ModelAdminEvents = require ('./lib/ModelAdminEvents.js');
-//var ModelObjectEvents = require('./lib/ModelObjectEvents.js');
 
 RampBackbone.Views.MainView = Backbone.View.extend({
     template: JST["index"],
 
     events: {
-        'click div.show_list' : "showModelList"
+        'click div.show-list' : "showModelList"
     },
 
     initialize: function(options){
@@ -14,7 +13,6 @@ RampBackbone.Views.MainView = Backbone.View.extend({
        this.model_admin = options.model_admin;
 
        window.wat = this.model_admin;
-       //this.model_admin.on(ModelAdminEvents.MODEL_CREATED, function(){self.showModelList()})
     },
 
     render: function(){
@@ -26,7 +24,7 @@ RampBackbone.Views.MainView = Backbone.View.extend({
 
         _.each(this.model_admin.getModelPool(), function(model){
             $("#anydata").append("<div class='row list-entry'></div>");
-            view = new RampBackbone.Views.ListItemView({el: $(".list-entry").last(), model: model})
+            view = new RampBackbone.Views.ListItemView({el: $(".list-entry").last(), model: model, admin: this.admin})
             view.render();
         });
 
@@ -46,20 +44,21 @@ RampBackbone.Views.ListItemView = Backbone.View.extend({
     template: JST["listEntry"],
 
     events: {
-        "click .list-entry" : "showModel"
+        "click .list-val" : "showModel"
     },
 
     initialize: function(options){
         this.el = options.el;
         this.model = options.model;
+        this.admin = options.admin;
     },
 
     render: function(){
-        $(this.el).html(this.template({name: this.model.name}))
+        $(this.el).html(this.template({name: this.model.modelName}))
     },
 
     showModel: function(){
-        view = new RampBackbone.Views.ModelView({el: "#anydata",model: this.model});
+        view = new RampBackbone.Views.ModelView({el: "#anydata",model: this.model, admin: this.admin});
         view.render();
     }
 });
@@ -76,8 +75,21 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
         _that = this
         this.el = options.el;
         this.model = options.model;
-        this.model.on(ModelObjectEvents.ATTRIBUTE_ADDED, function(){ _that.render() })
-        this.model.on(ModelObjectEvents.ATTRIBUTE_REMOVED, function(){ _that.render() })
+        this.admin = options.admin;
+
+        this.admin.on(ModelAdminEvents.ATTRIBUTE_ADDED, function(attribute){
+            if(attribute.owner == _that.model.modelName){
+                _that.render();
+            }
+        });
+
+        this.admin.on(ModelAdminEvents.ATTRIBUTE_REMOVED, function(attribute){
+            if(attribute.owner == _that.model.modelName){
+                _that.render();
+            }
+        });
+        //this.model.on(ModelObjectEvents.ATTRIBUTE_ADDED, function(){ _that.render() })
+        //this.model.on(ModelObjectEvents.ATTRIBUTE_REMOVED, function(){ _that.render() })
     },
 
     render: function(){
@@ -86,19 +98,19 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
     },
 
     addModel: function(){
-        view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model});
+        view = new RampBackbone.Views.AddModelView({el: "#add-attribute", model: this.model, admin: this.admin});
         view.render();
     },
 
     addRelationship: function(){
-        view = new RampBackbone.Views.AddRelationshipView({el: "#add-relationship", model: this.model});
+        view = new RampBackbone.Views.AddRelationshipView({el: "#add-relationship", model: this.model, admin: this.admin});
         view.render();
     },
 
     showAttributes: function(){
         _.each(this.model.getAttributes(),function(attribute){
                 _that.$("#attributes").append("<li></li>");
-                view = new RampBackbone.Views.AttributeView({el:_that.$("li").last(), attr: attribute, model: _that.model});
+                view = new RampBackbone.Views.AttributeView({el:_that.$("li").last(), attr: attribute, model: _that.model, admin: _that.admin});
                 view.render();
         });
     },
@@ -149,6 +161,7 @@ RampBackbone.Views.AttributeView = Backbone.View.extend({
         this.el = options.el;
         this.attr = options.attr;
         this.model = options.model;
+        this.admin = options.admin;
     },
 
     render: function(){
@@ -157,7 +170,7 @@ RampBackbone.Views.AttributeView = Backbone.View.extend({
 
     removeAttribute: function(){
         this.$(".remove-attr").unbind();
-        this.model.removeAttribute(this.attr.attribute);
+        this.admin.removeAttribute(this.model.modelName,this.attr.attribute);
         this.remove();
     },
 
@@ -173,6 +186,7 @@ RampBackbone.Views.AddModelView = Backbone.View.extend({
     initialize: function(options){
         this.el = options.el;
         this.model = options.model;
+        this.admin = options.admin;
         this.attribute_types = ["binary", "boolean", "date", "dateTime", "decimal",
             "float", "integer", "primary_key", "references", "string", "text",
             "time", "timestamp"
@@ -180,7 +194,7 @@ RampBackbone.Views.AddModelView = Backbone.View.extend({
     },
 
     render: function(){
-        $(this.el).html(this.template({model:this.model}));
+        $(this.el).html(this.template());
         this.addAttributeTypes();
     },
 
@@ -196,7 +210,7 @@ RampBackbone.Views.AddModelView = Backbone.View.extend({
         attr_name = this.$("#attribute-name").val();
         attr_type = this.$("#attribute-type").val();
 
-        this.model.addAttribute(attr_name,attr_type);
+        this.admin.addAttribute(this.model.modelName,attr_name,attr_type);
         this.removeMe();
     },
 

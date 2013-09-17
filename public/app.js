@@ -13,7 +13,7 @@ window.onload = function () {
     admin.createModel("ace");
     admin.createModel("weto");
 
-    view = new RampBackbone.Views.MainView({el: "#sidebar", model_admin: admin});
+    view = new RampBackbone.Views.MainView({el: ".sidebar", model_admin: admin});
     view.render();
 
 };
