@@ -1,5 +1,9 @@
 body {
   background: url('/assets/images/bg.png');
+  font-family: 'Lato-Bold', Helvetica, sans-serif;
+  color: #292929;
+  font-size: 12px;
+  letter-spacing: 4px;
 }
 
 .border {
@@ -7,20 +11,28 @@ body {
   padding: -1px;
 }
 
-.rounded-corners {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
+/*.rounded-corners {*/
+  /*-webkit-border-radius: 3px;*/
+  /*-moz-border-radius: 3px;*/
+  /*border-radius: 3px;*/
+/*}*/
 
 .add-model-box {
 	margin-bottom: 10px;
 }
 
+.logo {
+  width: 100px;
+}
+
 .add-model {
 	background: #acde65;
 	border: 0;
-	width: 120px;
+	width: 140px;
+  height: 40px;
+  letter-spacing: 4px;
+  margin-left: 10px;
+  font-size: 11px;
 }
 
 .margin0 {
@@ -58,7 +70,9 @@ body {
 
 .sidebar {
   background: #75a336;
+  height: 100%;
 }
+
 
 .view-all-models {
   background: #acde65;
