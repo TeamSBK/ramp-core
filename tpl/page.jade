@@ -16,16 +16,16 @@ html
     script(src='/backbone/routers/router.js')
     script(src='/backbone/views/view.js')
 
-    script(src='/app_sockets.js')
     script(src='/socket.io/socket.io.js')
-    script(src='/model-admin.js')
-    script(src='/app.js')
+    script(src='/app_sockets.js')
+    script(src='/assets/js/dnd/drag_and_drop.js')
 
     //bootstrap
     link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/assets/css/bootstrap/bootstrap.min.css')
     link(rel='stylesheet', href='/assets/css/style.css')
     script(src='/assets/js/bootstrap/bootstrap.min.js')
+    script(src='/app.js')
 
     //move to router when you get it running
     script.
@@ -46,18 +46,10 @@ html
               .col-md-12.add-model-box
                 button.add-model.rounded-corners= "ADD MODEL"
               .col-md-12.model-represent-box#model-container
-                .model-box.rounded-corners.model-container
-                  .model-box-header.rounded-corners
-                    = "STUDENTS"
-                .model-box.rounded-corners.model-container
-                  .model-box-header.rounded-corners
-                    = "USERS"
 
 
           .col-md-2.full-height.sidebar
             .row
               .col-md-12.view-all-models
                 = "VIEW ALL MODELS"
-    script(src='/assets/js/dnd/drag_and_drop.js')
-
 

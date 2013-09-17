@@ -1,4 +1,4 @@
-$(document).ready(function(){
+var createDiagram = function(admin){
     var targetDropOptions = {
         tolerance:'touch',
         hoverClass:'dropHover',
@@ -37,14 +37,30 @@ $(document).ready(function(){
         jsPlumb.draggable(models);
     };
 
-    window.addNewModel = function(name) {
-        _modelContainer = "<div class = 'model-box rounded-corners model-container'>"  +
-                        "<div class='model-box-header rounded-corners'>" + name + "</div></div>"
-        $("#model-container").append(_modelContainer);
-        bindEventItems();
-    }
 
     bindEventItems();
-});
+
+    /* appending new box */
+    function bindEvent(model) {
+        jsPlumb.addEndpoint(model, {anchor: "TopCenter"}, targetEndpoint);
+        jsPlumb.addEndpoint(model, {anchor: "BottomCenter"}, sourceEndpoint);
+        jsPlumb.draggable(model);
+    };
+
+    function appendNewModel(model) {
+        _modelContainer = $("<div class = 'model-box rounded-corners model-container'>"  +
+                        "<div class='model-box-header rounded-corners'>" + model.modelName + "</div></div>");
+        _modelContainer.appendTo('#model-container');
+        bindEvent(_modelContainer);
+    };
+
+    var ModelAdminEvents = require ('./lib/ModelAdminEvents.js');
+
+    admin.on(ModelAdminEvents.MODEL_CREATED, function(model) {
+        appendNewModel(model);
+    });
+
+
+};
 
 
