@@ -13,7 +13,7 @@ var createDiagram = function(admin){
         isSource:true,
         scope:"red dot",
         connectorStyle:{ strokeStyle:sourceColor, lineWidth:4 },
-        connector: ["Flowchart", {cornerRadius: 20}],
+        connector: ["Straight", {cornerRadius: 20}],
         maxConnections:3,
     };
 
@@ -24,7 +24,7 @@ var createDiagram = function(admin){
         paintStyle:{ fillStyle:targetColor},
         scope:"red dot",
         connectorStyle:{ strokeStyle:targetColor, lineWidth:4 },
-        connector: ["Flowchart", { cornerRadius: 20}],
+        connector: ["Straight", { cornerRadius: 20}],
         connectorOverlays: [['Arrow', {width: 5, length: 15}]],
         maxConnections:3,
         isTarget:true,
