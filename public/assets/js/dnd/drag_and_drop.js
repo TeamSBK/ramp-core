@@ -13,7 +13,7 @@ var createDiagram = function(admin){
         isSource:true,
         scope:"red dot",
         connectorStyle:{ strokeStyle:sourceColor, lineWidth:4 },
-        connector: ["Flowchart", {cornerRadius: 20}],
+        connector: ["Bezier", {curviness: 10}],
         maxConnections:3,
     };
 
@@ -24,7 +24,7 @@ var createDiagram = function(admin){
         paintStyle:{ fillStyle:targetColor},
         scope:"red dot",
         connectorStyle:{ strokeStyle:targetColor, lineWidth:4 },
-        connector: ["Flowchart", { cornerRadius: 20}],
+        connector: ["Bezier", { curviness: 10}],
         connectorOverlays: [['Arrow', {width: 5, length: 15}]],
         maxConnections:3,
         isTarget:true,
@@ -40,6 +40,32 @@ var createDiagram = function(admin){
 
 
     bindEventItems();
+
+
+    jsPlumb.bind('beforeDrop', function(conn){
+        rel = $('input[name="rel"]');
+        rel.prop('checked', false);
+        $("#dialog").dialog({
+            modal: true,
+            height: 200,
+            width: 200,
+            buttons: {
+                "Save": function() {
+                    if (rel.val()) {
+                        admin.addRelationship(conn.sourceId, conn.targetId, $('input[name="rel"]:checked').val());
+                        $(this).dialog('close');
+                    } else {
+                        alert('Please select relationship first!');
+                    }
+                },
+                "Cancel": function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+    });
+
 
     /* appending new box */
     jsPlumb.bind('click', function(conn) {
