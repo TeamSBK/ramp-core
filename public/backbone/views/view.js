@@ -4,7 +4,7 @@ RampBackbone.Views.MainView = Backbone.View.extend({
     template: JST["index"],
 
     events: {
-        'click div.show-list' : "showModelList"
+        'click div.show-list' : "toggleModelList"
     },
 
     initialize: function(options){
@@ -17,6 +17,16 @@ RampBackbone.Views.MainView = Backbone.View.extend({
 
     render: function(){
         $(this.el).html(this.template());
+    },
+
+    toggleModelList: function(){
+        var items = $("#anydata").children();
+
+        if(items.length == 0) {
+            this.showModelList();
+        } else {
+            this.clearList();
+        }
     },
 
     showModelList: function(){
