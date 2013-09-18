@@ -62,8 +62,10 @@ app.get("/get_app/:id", function(req, res) {
 
         var result = findById(snapshot.val(), req.params.id);
         if (result instanceof Object) {
+            console.log('[Firebase]Successfully sent!');
             res.send(JSON.stringify(result));
         } else {
+            console.log('[Firebase]404 not found!');
             res.status(404).send(result);
         }
     });
@@ -90,12 +92,12 @@ app.post("/save", function(req, res) {
 });
 
 function findById(source, id) {
-  for (var i = 0; i < source.length; i++) {
-    if (source[i].id == id) {
-      return source[i];
-    }
+  for (var key in source) {
+      if (source[key]["id"] == id) {
+          return source[key];
+      }
   }
-  return "Couldn't find damn app with id: " + id;
+      return "Couldn't find damn app with id: " + id;
 }
 
 console.log("Listening on port " + port);
