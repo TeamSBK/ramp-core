@@ -25,7 +25,7 @@ body {
   width: 100px;
 }
 
-.add-model {
+.add-model, .add-relationship, .btn-col {
 	background: #acde65;
 	border: 0;
 	width: 140px;
@@ -33,10 +33,19 @@ body {
   letter-spacing: 4px;
   margin-left: 10px;
   font-size: 11px;
+  cursor: pointer;
 }
 
 .margin0 {
   margin: 0 !important;
+}
+
+li{
+    list-style-type: none;
+}
+
+#relationships, #attributes{
+    padding-left: 0px;
 }
 
 .model-represent-box {
@@ -67,6 +76,7 @@ body {
   -webkit-border-radius: 3px 3px 0 0;
   -moz-border-radius: 0;
   border-radius: 3px 3px 0 0;
+  text-transform: uppercase;
 }
 
 .sidebar {
@@ -82,6 +92,24 @@ body {
   vertical-align: middle;
   text-align: center;
   padding-top: 15px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.list-entry{
+    text-align:center;
+    line-height: 45px;
+    text-transform: uppercase;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.align-center{
+    text-align:center;
+}
+
+.uppercase{
+    text-transform: uppercase;
 }
 
 #dialog {

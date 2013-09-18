@@ -12,8 +12,6 @@ RampBackbone.Views.MainView = Backbone.View.extend({
        self = this;
        this.el = options.el;
        this.model_admin = options.model_admin;
-
-       window.wat = this.model_admin;
     },
 
     render: function(){
@@ -41,9 +39,12 @@ RampBackbone.Views.MainView = Backbone.View.extend({
     },
 
     saveJSON: function(){
+        var id = this.model_admin.getId()
         $.post("/save", this.model_admin.modelToJson(),
             function(){
-                alert("This is your API KEY: "+ self.model_admin.getId())
+                alert("This is your API KEY: "+ id)
+            }).fail(function(){
+                alert("Error in Saving! Please try again");
             });
     },
 
@@ -83,7 +84,8 @@ RampBackbone.Views.ListItemView = Backbone.View.extend({
 RampBackbone.Views.ModelView = Backbone.View.extend({
     events: {
         "click .add-model" : "addModel",
-        "click .add-relationship" : "addRelationship"
+        "click .add-relationship" : "addRelationship",
+        "click .remove-model" : "removeModel"
     },
 
     template: JST["modelView"],
@@ -115,6 +117,16 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
         this.admin.on(ModelAdminEvents.RELATIONSHIP_REMOVED, function(relationship){
             if(relationship.owner == self.model.modelName){
                 self.render();
+            }
+        });
+
+        this.admin.on(ModelAdminEvents.MODEL_DELETED, function(model){
+            if(model.modelName == self.model.modelName){
+                var rel = model.getRelationships();
+                _.each(rel, function(relationship){
+                    self.admin.removeRelationship(relationship.withModel,relationship.owner);
+                });
+                self.removeMe();
             }
         });
     },
@@ -149,7 +161,17 @@ RampBackbone.Views.ModelView = Backbone.View.extend({
                 view = new RampBackbone.Views.RelationshipView({el:self.$("li").last(), rel: relationship, model: self.model, admin: self.admin});
                 view.render();
         });
-    }
+    },
+
+    removeModel: function(){
+        this.admin.deleteModel(this.model.modelName);
+        this.removeMe();
+    },
+
+    removeMe: function(){
+        $(this.el).empty();
+        $(this.el).unbind();
+    },
 });
 
 RampBackbone.Views.RelationshipView = Backbone.View.extend({
@@ -183,7 +205,7 @@ RampBackbone.Views.RelationshipView = Backbone.View.extend({
 RampBackbone.Views.AddRelationshipView = Backbone.View.extend({
     events: {
         "click .save-model" : "saveRelationship",
-        "click .btn-default" : "removeMe"
+        "click .cancel" : "removeMe"
     },
 
     template: JST["addRelationshipView"],
@@ -266,7 +288,7 @@ RampBackbone.Views.AttributeView = Backbone.View.extend({
 RampBackbone.Views.AddModelView = Backbone.View.extend({
     events: {
         "click .save-model" : "saveAttribute",
-        "click .btn-default" : "removeMe"
+        "click .cancel" : "removeMe"
     },
 
     template: JST["addModelView"],
