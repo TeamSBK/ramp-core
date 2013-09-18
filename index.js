@@ -5,7 +5,7 @@ var ModelAdminEvents = require("model-admin").ModelAdminEvents;
 var ServerAdminEvents = require("model-admin").ServerAdminEvents;
 
 var app = express();
-var port = 8002;
+var port = 80;
 //Set view
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
