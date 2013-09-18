@@ -33,6 +33,7 @@ body {
   letter-spacing: 4px;
   margin-left: 10px;
   font-size: 11px;
+  cursor: pointer;
 }
 
 .margin0 {
@@ -93,12 +94,16 @@ li{
   vertical-align: middle;
   text-align: center;
   padding-top: 15px;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .list-entry{
     text-align:center;
     line-height: 45px;
     text-transform: uppercase;
+    cursor: pointer;
+    cursor: hand;
 }
 
 .align-center{

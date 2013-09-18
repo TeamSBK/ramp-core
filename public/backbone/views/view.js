@@ -184,7 +184,7 @@ RampBackbone.Views.RelationshipView = Backbone.View.extend({
 RampBackbone.Views.AddRelationshipView = Backbone.View.extend({
     events: {
         "click .save-model" : "saveRelationship",
-        "click .btn-default" : "removeMe"
+        "click .cancel" : "removeMe"
     },
 
     template: JST["addRelationshipView"],
@@ -267,7 +267,7 @@ RampBackbone.Views.AttributeView = Backbone.View.extend({
 RampBackbone.Views.AddModelView = Backbone.View.extend({
     events: {
         "click .save-model" : "saveAttribute",
-        "click .btn-default" : "removeMe"
+        "click .cancel" : "removeMe"
     },
 
     template: JST["addModelView"],

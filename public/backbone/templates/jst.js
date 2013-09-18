@@ -87,7 +87,7 @@ JST['addModelView'] = _.template(
             </h5> \
             <h5> \
                 <span class='btn-col save-model'>Save</span> \
-                <span class='btn-col'>Cancel</span> \
+                <span class='btn-col cancel'>Cancel</span> \
             </h5> \
             <hr> \
         </div> \
@@ -109,7 +109,7 @@ JST['addRelationshipView'] = _.template(
             </h5> \
             <h5> \
                 <span class='btn-col save-model'>Save</span> \
-                <span class='btn-col'>Cancel</span> \
+                <span class='btn-col cancel'>Cancel</span> \
             </h5> \
             <hr> \
         </div> \
