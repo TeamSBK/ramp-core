@@ -48,6 +48,9 @@ JST['modelView'] = _.template(
                 <ul id='relationships'> \
                 </ul> \
            </div> \
+           <h5> \
+                <span class='btn-col remove-model'>REMOVE</span> \
+           </h5> \
         </div> \
     </div> \
     "
