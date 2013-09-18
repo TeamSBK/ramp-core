@@ -8,6 +8,9 @@ JST['index'] = _.template(
         <div class='col-md-12 view-all-models'> \
             COLLABORATE \
         </div> \
+        <div class='col-md-12 view-all-models save-data'> \
+            SAVE DATA BABY \
+        </div> \
     </div>"
 );
 

@@ -1,6 +1,15 @@
 window.onload = function () {
     var ModelAdmin = require ('./lib/ModelAdmin.js');
-    admin = new ModelAdmin('SampleAdmin');
+
+    function generateKey(plength){
+      var keylist="abcdefghipqrstuvwxyz123456789"
+      var temp='';
+      for (i=0;i<plength;i++)
+        temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+      return temp
+    }
+
+    admin = new ModelAdmin(generateKey(10));
 
     openSockets(admin);
     createDiagram(admin);
@@ -18,3 +27,4 @@ window.onload = function () {
         admin.createModel(model_name);
     });
 };
+

@@ -4,7 +4,8 @@ RampBackbone.Views.MainView = Backbone.View.extend({
     template: JST["index"],
 
     events: {
-        'click div.show-list' : "toggleModelList"
+        'click div.show-list' : "toggleModelList",
+        'click div.save-data' : "saveJSON"
     },
 
     initialize: function(options){
@@ -37,7 +38,10 @@ RampBackbone.Views.MainView = Backbone.View.extend({
             view = new RampBackbone.Views.ListItemView({el: $(".list-entry").last(), model: model, admin: this.admin})
             view.render();
         });
+    },
 
+    saveJSON: function(){
+        $.post("/save", this.model_admin.modelToJson(), alert("This is your API KEY: "+this.model_admin.getId()));
     },
 
     clearList: function(){
