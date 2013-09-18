@@ -13,7 +13,7 @@ var createDiagram = function(admin){
         isSource:true,
         scope:"red dot",
         connectorStyle:{ strokeStyle:sourceColor, lineWidth:4 },
-        connector: ["Bezier", {curviness: 10}],
+        connector: ["Flowchart", {cornerRadius: 20}],
         maxConnections:3,
     };
 
@@ -24,7 +24,7 @@ var createDiagram = function(admin){
         paintStyle:{ fillStyle:targetColor},
         scope:"red dot",
         connectorStyle:{ strokeStyle:targetColor, lineWidth:4 },
-        connector: ["Bezier", { curviness: 10}],
+        connector: ["Flowchart", { cornerRadius: 20}],
         connectorOverlays: [['Arrow', {width: 5, length: 15}]],
         maxConnections:3,
         isTarget:true,
@@ -53,6 +53,7 @@ var createDiagram = function(admin){
                 "Save": function() {
                     if (rel.val()) {
                         admin.addRelationship(conn.sourceId, conn.targetId, $('input[name="rel"]:checked').val());
+                        admin.addRelationship(conn.targetId, conn.sourceId, 'belongs_to');
                         $(this).dialog('close');
                     } else {
                         alert('Please select relationship first!');
@@ -72,7 +73,7 @@ var createDiagram = function(admin){
         if(confirm(' Delete relation between: ' + conn.sourceId + ' and ' + conn.targetId + '?')){
             jsPlumb.detach({target: conn.targetId, source: conn.sourceId});
             admin.removeRelationship(conn.sourceId, conn.targetId);
-            console.log('Successfully remove relationship');
+            admin.removeRelationship(conn.targetId, conn.sourceId);
         }
     });
 
@@ -93,21 +94,22 @@ var createDiagram = function(admin){
 
     function addRelationship(model) {
         relationship = model.type;
-        var from = jsPlumb.selectEndpoints({source: model.owner}).get(0);
-        var to = jsPlumb.selectEndpoints({ target: model.withModel }).get(0);
-        var attributes = []
-        if(relationship === 'has_many'){
-            var attributes = [['Arrow', { width: 30, length: 20, direction: -1, location: 0.9}],
-                             ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">has_many</p>');}, location: 0.5 }]
-                             ];
+        if (!(relationship === 'belongs_to')) {
+            var from = jsPlumb.selectEndpoints({source: model.owner}).get(0);
+            var to = jsPlumb.selectEndpoints({ target: model.withModel }).get(0);
+            var attributes = []
+                if(relationship === 'has_many'){
+                    var attributes = [['Arrow', { width: 30, length: 20, direction: -1, location: 0.9}],
+                        ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">has_many</p>');}, location: 0.5 }]
+                            ];
+                }
+                else if (relationship === 'has_one') {
+                    var attributes = [['Diamond', { width: 20, length: 20, direction: -1, location: 0.9}],
+                        ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">has_one</p>');}, location: 0.5 }]
+                            ];
+                }
+            jsPlumb.connect({ source: from, target: to, overlays: attributes });
         }
-        else if (relationship === 'belongs_to') {
-            var attributes = [['Diamond', { width: 20, length: 20, direction: -1, location: 0.9}],
-                             ['Custom', { create: function(component){ return $('<p style = "color: #fff; font-size: 15px;">belongs_to</p>');}, location: 0.5 }]
-                             ];
-        }
-
-        jsPlumb.connect({ source: from, target: to, overlays: attributes });
 
     };
 
