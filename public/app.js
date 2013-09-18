@@ -24,7 +24,9 @@ window.onload = function () {
 
     $('.add-model').click(function(){
         var model_name = prompt('Enter model name:');
-        admin.createModel(model_name);
+        if (!(model_name === '' || model_name === null)) {
+            admin.createModel(model_name);
+        }
     });
 };
 
