@@ -42,4 +42,12 @@ html
               .col-md-12.model-represent-box#model-container
 
           .col-md-2.full-height.sidebar
-
+    #dialog(style="display: none;")
+      h5
+        = "Relationship:"
+      p
+        input(type='radio' name="rel" value="belongs_to")
+        = "belongs_to"
+      p
+        input(type='radio' name="rel" value="has_many")
+        = "has_many"
