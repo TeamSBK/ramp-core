@@ -55,9 +55,7 @@ body {
 }
 
 .model-box.model-container {
-    position: relative;
-    display:inline-block;
-    margin-right: 10px;
+    position: absolute;
 }
 
 .model-box-header {

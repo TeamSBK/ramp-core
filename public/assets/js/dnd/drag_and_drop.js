@@ -121,6 +121,16 @@ var createDiagram = function(admin){
         appendNewModel(model);
     });
 
+    function removeModel(model) {
+        jsPlumb.detachAllConnections(model.modelName);
+        jsPlumb.removeAllEndpoints(model.modelName);
+        $('#' + model.modelName).remove();
+    }
+
+    admin.on(ModelAdminEvents.MODEL_DELETED, function(model) {
+        removeModel(model);
+    });
+
     admin.on(ModelAdminEvents.RELATIONSHIP_ADDED, function(relationshipObj){
         addRelationship(relationshipObj);
     });
