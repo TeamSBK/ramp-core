@@ -69,6 +69,26 @@ app.get("/get_app/:id", function(req, res) {
     });
 });
 
+app.post("/save", function(req, res) {
+    req.content = "";
+    req.addListener("data", function(chunk) {
+        req.content += chunk;
+    });
+
+    req.addListener("end", function() {
+        var modelAdmin = new Firebase('https://ramp-model.firebaseio.com/model-admin');
+
+        if (modelAdmin.push(JSON.parse(req.content))) {
+            console.log('[Firebase]Saving done!');
+            res.status(200).send("App models saved!");
+        } else {
+            console.log('[Firebase]Saving failed!');
+            res.status(404).send("App models not saved!");
+        }
+        res.end();
+    });
+});
+
 function findById(source, id) {
   for (var i = 0; i < source.length; i++) {
     if (source[i].id == id) {
