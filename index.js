@@ -5,7 +5,7 @@ var ModelAdminEvents = require("model-admin").ModelAdminEvents;
 var ServerAdminEvents = require("model-admin").ServerAdminEvents;
 
 var app = express();
-var port = 80;
+var port = process.env.PORT || 8002;
 //Set view
 app.set('views', __dirname + '/tpl');
 app.set('view engine', "jade");
@@ -14,6 +14,11 @@ app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
 
 var io = require('socket.io').listen(app.listen(port));
+
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
 
 // var mainFirebase = new Firebase('https://ramp-model.firebaseio.com/');
 var fieldTypes = new Firebase('https://ramp-model.firebaseio.com/field-types');
