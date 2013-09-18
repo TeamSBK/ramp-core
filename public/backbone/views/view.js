@@ -296,8 +296,8 @@ RampBackbone.Views.AddModelView = Backbone.View.extend({
         this.el = options.el;
         this.model = options.model;
         this.admin = options.admin;
-        this.attribute_types = ["binary", "boolean", "date", "dateTime", "decimal",
-            "float", "integer", "primary_key", "references", "string", "text",
+        this.attribute_types = ["string", "boolean", "date", "dateTime", "decimal",
+            "float", "integer", "primary_key", "references", "boolean", "text",
             "time", "timestamp"
         ];
     },
