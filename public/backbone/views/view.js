@@ -173,6 +173,7 @@ RampBackbone.Views.RelationshipView = Backbone.View.extend({
     removeRelationship: function(){
         this.$(".remove-rel").unbind();
         this.admin.removeRelationship(this.model.modelName,this.rel.withModel);
+        this.admin.removeRelationship(this.rel.withModel,this.model.modelName);
         this.remove();
     },
 
@@ -191,7 +192,7 @@ RampBackbone.Views.AddRelationshipView = Backbone.View.extend({
         this.el = options.el;
         this.model = options.model;
         this.admin = options.admin;
-        this.relationship_types = ["has_many", "has_one", "belongs_to"];
+        this.relationship_types = ["has_many", "has_one"];
     },
 
     render: function(){
@@ -229,6 +230,8 @@ RampBackbone.Views.AddRelationshipView = Backbone.View.extend({
         rel_model = this.$("#relationship-model").val();
 
         this.admin.addRelationship(this.model.modelName,rel_model,rel_type);
+        this.admin.addRelationship(rel_model,this.model.modelName,"belongs_to");
+
         this.removeMe();
     }
 
