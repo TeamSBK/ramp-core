@@ -8,7 +8,7 @@ var openSockets = function (admin) {
     var modelAdmin = admin;
     var writer = new HistoryWriter();
 
-    var socket = io.connect('http://ramp-model.herokuapp.com');
+    var socket = io.connect('http://ramp-model.herokuapp.com:80');
     var socketId;
 
     //send actions
