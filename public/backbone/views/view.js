@@ -12,8 +12,6 @@ RampBackbone.Views.MainView = Backbone.View.extend({
        self = this;
        this.el = options.el;
        this.model_admin = options.model_admin;
-
-       window.wat = this.model_admin;
     },
 
     render: function(){
@@ -41,9 +39,12 @@ RampBackbone.Views.MainView = Backbone.View.extend({
     },
 
     saveJSON: function(){
+        var id = this.model_admin.getId()
         $.post("/save", this.model_admin.modelToJson(),
             function(){
-                alert("This is your API KEY: "+ self.model_admin.getId())
+                alert("This is your API KEY: "+ id)
+            }).fail(function(){
+                alert("Error in Saving! Please try again");
             });
     },
 
