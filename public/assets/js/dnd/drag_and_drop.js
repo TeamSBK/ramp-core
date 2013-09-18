@@ -80,8 +80,10 @@ var createDiagram = function(admin){
     function bindEvent(model) {
         jsPlumb.addEndpoint(model, {anchor: "TopCenter"}, targetEndpoint);
         jsPlumb.addEndpoint(model, {anchor: "BottomCenter"}, sourceEndpoint);
-        jsPlumb.draggable(model);
+        jsPlumb.draggable($(model),{containment: '#model-container'});
+
     };
+
 
     function appendNewModel(model) {
         _modelContainer = $("<div class = 'model-box rounded-corners model-container' id = '" + model.modelName + "'>"  +
